@@ -213,7 +213,7 @@ namespace DataEditorX.Core
 		public override int GetHashCode()
 		{
 			// combine the hash codes of all members here (e.g. with XOR operator ^)
-			int hashCode = id.GetHashCode() + name.GetHashCode();
+			int hashCode = unchecked(id.GetHashCode() + name.GetHashCode());
 			return hashCode;//member.GetHashCode();
 		}
 		/// <summary>

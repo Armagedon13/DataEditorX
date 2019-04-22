@@ -237,12 +237,12 @@ namespace System.IO.Compression
 
             // Even though we write the header now, it will have to be rewritten, since we don't know compressed size or crc.
             zfe.Crc32 = 0;  // to be updated later
-            zfe.HeaderOffset = (uint)this.ZipFileStream.Position;  // offset within file of the start of this local record
+            zfe.HeaderOffset = unchecked((uint)this.ZipFileStream.Position);  // offset within file of the start of this local record
             zfe.ModifyTime = _modTime;
 
             // Write local header
             WriteLocalHeader(ref zfe);
-            zfe.FileOffset = (uint)this.ZipFileStream.Position;
+            zfe.FileOffset = unchecked((uint)this.ZipFileStream.Position);
 
             // Write file to zip (store)
             Store(ref zfe, _source);
@@ -260,7 +260,7 @@ namespace System.IO.Compression
         {
             if (this.Access != FileAccess.Read)
             {
-                uint centralOffset = (uint)this.ZipFileStream.Position;
+                uint centralOffset = unchecked((uint)this.ZipFileStream.Position);
                 uint centralSize = 0;
 
                 if (this.CentralDirImage != null)
